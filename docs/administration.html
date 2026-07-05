@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administration — Traceline Docs</title>
+<meta name="description" content="Users and roles, settings, backups, and Supporter license activation in Traceline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/docs.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="../index.html" class="nav-logo"><span class="nav-logo-mark"><i class="fas fa-diagram-project"></i></span> Traceline</a>
+    <div class="nav-links">
+      <a href="index.html">Docs</a>
+      <a href="../index.html#features">Features</a>
+      <a href="../index.html#editions">Editions</a>
+      <a href="https://github.com/traceline-project/traceline" target="_blank" rel="noopener">GitHub</a>
+      <div class="nav-links-mobile-cta">
+        <a href="../index.html#editions" class="btn btn-ghost-dark btn-block">Download Free</a>
+        <a href="../support.html" class="btn btn-gold btn-block">Support the Project</a>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <a href="../index.html#editions" class="btn btn-ghost-dark">Download Free</a>
+      <a href="../support.html" class="btn btn-gold">Support the Project</a>
+    </div>
+    <button class="nav-burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="docs-shell">
+    <aside class="docs-sidebar"><div id="docs-sidebar-nav"></div></aside>
+    <main class="docs-content">
+      <div class="docs-eyebrow">Administration</div>
+      <h1>Users, Settings &amp; Licensing</h1>
+      <p class="lede">Everything an admin needs: managing users, the Settings tabs, backups, and activating a Supporter license.</p>
+
+      <h2>Users &amp; roles</h2>
+      <p>Admin → Users. Create, edit, deactivate, or delete users, and assign one of the five roles (see <a href="core-concepts.html">Core Concepts</a> for what each can do). Deactivating a user frees up a Community Edition seat without deleting their history.</p>
+      <div class="docs-callout tip">
+        <i class="fas fa-circle-info"></i>
+        <p>Changing your own password requires re-entering your <strong>current</strong> password first — this stops someone at an unlocked, already-logged-in machine from silently taking over the account.</p>
+      </div>
+
+      <h2>Settings tabs</h2>
+      <table class="docs-table">
+        <tr><th>Tab</th><th>Covers</th></tr>
+        <tr><td>User Management</td><td>Create/edit/deactivate users (same as Admin → Users)</td></tr>
+        <tr><td>Roles Management</td><td>Custom roles beyond the five built-in ones</td></tr>
+        <tr><td>Site Settings</td><td>App-wide toggles</td></tr>
+        <tr><td>Custom Options</td><td>Custom dropdown values used across modules</td></tr>
+        <tr><td>Integration Settings</td><td>Jira, Slack, webhooks, API tokens, MCP servers — see <a href="integrations-api.html">Integrations &amp; API</a></td></tr>
+        <tr><td>AI Provider</td><td>Configure the AI endpoint — see <a href="ai-features.html">AI Features</a></td></tr>
+        <tr><td>Custom Fields</td><td>Extra fields on test cases/issues beyond the built-ins</td></tr>
+        <tr><td>Activity Log</td><td>Audit trail of who changed what</td></tr>
+        <tr><td>License</td><td>Community/Supporter status and activation — see below</td></tr>
+      </table>
+
+      <h2>Backups</h2>
+      <p><code>cli/backup.php</code> dumps the database (gzipped) and archives <code>uploads/</code>, keeping the 14 most recent of each. It also rotates any log file over 10 MB. Schedule it daily:</p>
+      <pre><code>Register-ScheduledTask -TaskName "Traceline Backup" `
+  -Action (New-ScheduledTaskAction -Execute "php.exe" -Argument "C:\path\to\cli\backup.php") `
+  -Trigger (New-ScheduledTaskTrigger -Daily -At 2am)</code></pre>
+      <p>Restore with:</p>
+      <pre><code>gzip -dc backups/db-&lt;stamp&gt;.sql.gz | mysql -u root traceline</code></pre>
+
+      <h2 id="licensing">Licensing</h2>
+      <p>Traceline's Community Edition supports up to <strong>5 active users</strong>, free forever. A one-time Supporter donation unlocks unlimited users on that install — see the <a href="../support.html">Support page</a> for details on the donation itself.</p>
+
+      <h3>Activating a license</h3>
+      <ol>
+        <li>Make a Supporter donation and provide your email</li>
+        <li>A signed license key arrives by email, in the form <code>TL1.xxxxx.xxxxx</code></li>
+        <li>Settings → License → paste the key → <strong>Activate</strong></li>
+        <li>Verified locally against a cryptographic signature — no external call required for this step</li>
+      </ol>
+
+      <h3>How verification works</h3>
+      <p>License keys are signed with ECDSA (P-256/SHA-256). Traceline ships only the <em>public</em> half of the signing key — activation is verified entirely offline, so it works even on an air-gapped install. There's no license server your install has to reach just to keep running.</p>
+
+      <div class="docs-callout warn">
+        <i class="fas fa-triangle-exclamation"></i>
+        <p>Traceline's code is fully open source under AGPL-3.0 regardless of edition — this only affects the official build's user-count convenience limit, not the code itself.</p>
+      </div>
+
+      <h3>Revocation</h3>
+      <p>In the rare fraud/chargeback case, a license can be revoked from the license-issuing side. Because verification is offline by design, revocation isn't instant — installs check a public revocation list opportunistically (roughly weekly, with a short timeout, and fail open if unreachable) rather than phoning home on every launch.</p>
+
+      <div class="docs-next">
+        <a href="integrations-api.html">&larr; Integrations &amp; API</a>
+        <span></span>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <span>© 2026 Traceline. Open source under AGPL-3.0.</span>
+      <a href="../index.html">&larr; Back to home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/docs-nav.js"></script>
+</body>
+</html>

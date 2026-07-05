@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Requirements &amp; Issues — Traceline Docs</title>
+<meta name="description" content="Requirements traceability and coverage in Traceline, plus the issue kanban board and Jira integration.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/docs.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="../index.html" class="nav-logo"><span class="nav-logo-mark"><i class="fas fa-diagram-project"></i></span> Traceline</a>
+    <div class="nav-links">
+      <a href="index.html">Docs</a>
+      <a href="../index.html#features">Features</a>
+      <a href="../index.html#editions">Editions</a>
+      <a href="https://github.com/traceline-project/traceline" target="_blank" rel="noopener">GitHub</a>
+      <div class="nav-links-mobile-cta">
+        <a href="../index.html#editions" class="btn btn-ghost-dark btn-block">Download Free</a>
+        <a href="../support.html" class="btn btn-gold btn-block">Support the Project</a>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <a href="../index.html#editions" class="btn btn-ghost-dark">Download Free</a>
+      <a href="../support.html" class="btn btn-gold">Support the Project</a>
+    </div>
+    <button class="nav-burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="docs-shell">
+    <aside class="docs-sidebar"><div id="docs-sidebar-nav"></div></aside>
+    <main class="docs-content">
+      <div class="docs-eyebrow">Using Traceline</div>
+      <h1>Requirements &amp; Issues</h1>
+      <p class="lede">Requirements traceability answers "what's actually covered by testing?" Issues tracking answers "what did we find, and did we fix it?" Traceline links both back to your test cases.</p>
+
+      <h2>Requirements traceability</h2>
+      <p>Add a requirement (Quality → Requirements) with a reference code, title, and description, then link it to the test cases that verify it via <strong>Cases</strong> on that requirement.</p>
+      <p>Each requirement shows a live coverage badge based on the latest result of every linked test case:</p>
+      <table class="docs-table">
+        <tr><th>Badge</th><th>Meaning</th></tr>
+        <tr><td>Not covered</td><td>No test cases linked yet</td></tr>
+        <tr><td>N linked · all passing</td><td>Every linked case's most recent result was Passed</td></tr>
+        <tr><td>N linked · N failing</td><td>At least one linked case's most recent result was Failed or Blocked</td></tr>
+        <tr><td>N linked · N passed</td><td>Partial coverage — some passed, none failing yet</td></tr>
+      </table>
+      <p>You can also generate draft test cases directly from a requirement via <strong>AI Cases</strong> — see <a href="ai-features.html">AI Features</a>.</p>
+
+      <h2>Issues (kanban board)</h2>
+      <p>Issues → board view shows a four-column kanban: <strong>Open</strong>, <strong>In Progress</strong>, <strong>Resolved</strong>, <strong>Closed</strong>. Drag a card between columns to change its status. Each card shows its priority (color-coded left edge), type, project, and assignee.</p>
+      <p>Switch to table view for a sortable list instead — useful when you need to filter by status/priority/type rather than drag cards around.</p>
+      <p>Issues can be created directly, or drafted automatically from a failed test result — see <a href="test-execution.html">Test Execution</a>.</p>
+
+      <h3>Reopened issues</h3>
+      <p>An issue moved back to Open after having been Resolved or Closed shows a <strong>REOPENED</strong> badge on its card, so regressions don't quietly blend in with new bugs.</p>
+
+      <h2>Jira integration</h2>
+      <p>Once Jira is connected (Settings → Integration Settings → Jira), any issue without a linked Jira key shows a <strong>Push to Jira</strong> button on its kanban card. Pushing creates the Jira issue and stores its key on the Traceline issue — from then on the card shows a linked-Jira badge instead.</p>
+      <p>Configure the connection with your Jira base URL, account email, and an API token (Atlassian → Account Settings → Security → API tokens) — Traceline encrypts this credential at rest.</p>
+
+      <div class="docs-next">
+        <a href="test-execution.html">&larr; Test Execution</a>
+        <a href="ai-features.html">AI Features &rarr;</a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <span>© 2026 Traceline. Open source under AGPL-3.0.</span>
+      <a href="../index.html">&larr; Back to home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/docs-nav.js"></script>
+</body>
+</html>

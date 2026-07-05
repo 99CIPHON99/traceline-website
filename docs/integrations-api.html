@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Integrations &amp; API — Traceline Docs</title>
+<meta name="description" content="Slack notifications, outbound webhooks, the CI-facing REST API, and the MCP client in Traceline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/docs.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="../index.html" class="nav-logo"><span class="nav-logo-mark"><i class="fas fa-diagram-project"></i></span> Traceline</a>
+    <div class="nav-links">
+      <a href="index.html">Docs</a>
+      <a href="../index.html#features">Features</a>
+      <a href="../index.html#editions">Editions</a>
+      <a href="https://github.com/traceline-project/traceline" target="_blank" rel="noopener">GitHub</a>
+      <div class="nav-links-mobile-cta">
+        <a href="../index.html#editions" class="btn btn-ghost-dark btn-block">Download Free</a>
+        <a href="../support.html" class="btn btn-gold btn-block">Support the Project</a>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <a href="../index.html#editions" class="btn btn-ghost-dark">Download Free</a>
+      <a href="../support.html" class="btn btn-gold">Support the Project</a>
+    </div>
+    <button class="nav-burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="docs-shell">
+    <aside class="docs-sidebar"><div id="docs-sidebar-nav"></div></aside>
+    <main class="docs-content">
+      <div class="docs-eyebrow">Extending Traceline</div>
+      <h1>Integrations &amp; API</h1>
+      <p class="lede">Slack notifications, generic outbound webhooks, a token-authenticated REST API for CI pipelines, and an MCP client for connecting external tool servers.</p>
+
+      <h2>Slack notifications</h2>
+      <p>Settings → Integration Settings → Slack. Paste an Incoming Webhook URL from your Slack workspace. Once connected, events like new issues are posted automatically. Delivery happens asynchronously — creating an issue never waits on Slack's response time.</p>
+
+      <h2>Outbound webhooks</h2>
+      <p>Settings → Integration Settings → Webhooks. Add any HTTPS endpoint, choose which events it should receive (or subscribe to all with <code>*</code>), and optionally set a signing secret.</p>
+      <p>Each delivery includes an HMAC-SHA256 signature header when a secret is configured:</p>
+      <pre><code>X-Traceline-Signature: &lt;hmac_sha256(secret, request_body)&gt;</code></pre>
+      <p>Payload shape:</p>
+      <pre><code>{
+  "event": "issue_created",
+  "title": "New issue: ISS-042",
+  "message": "Login button unresponsive on retry",
+  "context": { "url": "https://your-install/issues", "priority": "high" },
+  "sent_at": "2026-07-05T14:22:00+00:00"
+}</code></pre>
+      <p>Use the <strong>Test</strong> button next to any webhook to send a one-off test payload regardless of its event subscriptions.</p>
+
+      <h2>REST API for CI pipelines</h2>
+      <p>Generate a token: Settings → Integration Settings → API Tokens → <strong>Generate</strong>. The plaintext token is shown exactly once — store it in your CI secrets immediately.</p>
+
+      <h3>Push a result</h3>
+      <pre><code>curl -X POST https://your-install/api/v1/results \
+  -H "Authorization: Bearer ttk_xxxxxxxxxxxxxxxxxxxx" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "run_id": 12,
+    "case_code": "TC0001",
+    "status": "passed",
+    "comment": "optional"
+  }'</code></pre>
+      <p>Identify the test case with either <code>case_code</code> or <code>test_case_id</code>. Valid <code>status</code> values: <code>passed</code>, <code>failed</code>, <code>blocked</code>, <code>retest</code>, <code>skipped</code>, <code>untested</code>. Calling this again for the same run+case updates the existing result rather than duplicating it.</p>
+
+      <h3>Check a run exists</h3>
+      <pre><code>curl https://your-install/api/v1/runs/12 \
+  -H "Authorization: Bearer ttk_xxxxxxxxxxxxxxxxxxxx"</code></pre>
+      <p>Useful as a pre-flight check in a CI script before pushing a batch of results.</p>
+
+      <h3>Rate limits</h3>
+      <table class="docs-table">
+        <tr><th>Scope</th><th>Limit</th></tr>
+        <tr><td>Failed authentication (per IP)</td><td>20 requests / 5 minutes</td></tr>
+        <tr><td>Per valid token</td><td>120 requests / minute</td></tr>
+      </table>
+
+      <h2>MCP client</h2>
+      <p>Settings → Integration Settings supports connecting to <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">Model Context Protocol</a> servers (Streamable HTTP transport, spec 2025-03-26). Once connected, <strong>Browse Tools</strong> lists what the server exposes and lets you invoke them directly from Settings — useful for testing an MCP server integration without a separate client.</p>
+      <div class="docs-callout warn">
+        <i class="fas fa-triangle-exclamation"></i>
+        <p>Legacy SSE-only and OAuth-authenticated MCP servers aren't supported yet — only Streamable HTTP with bearer-token auth.</p>
+      </div>
+
+      <div class="docs-next">
+        <a href="ai-features.html">&larr; AI Features</a>
+        <a href="administration.html">Administration &rarr;</a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <span>© 2026 Traceline. Open source under AGPL-3.0.</span>
+      <a href="../index.html">&larr; Back to home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/docs-nav.js"></script>
+</body>
+</html>

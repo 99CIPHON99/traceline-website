@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Installation — Traceline Docs</title>
+<meta name="description" content="How to install Traceline: requirements, database setup, environment configuration, and going to production.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/docs.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="../index.html" class="nav-logo"><span class="nav-logo-mark"><i class="fas fa-diagram-project"></i></span> Traceline</a>
+    <div class="nav-links">
+      <a href="index.html">Docs</a>
+      <a href="../index.html#features">Features</a>
+      <a href="../index.html#editions">Editions</a>
+      <a href="https://github.com/traceline-project/traceline" target="_blank" rel="noopener">GitHub</a>
+      <div class="nav-links-mobile-cta">
+        <a href="../index.html#editions" class="btn btn-ghost-dark btn-block">Download Free</a>
+        <a href="../support.html" class="btn btn-gold btn-block">Support the Project</a>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <a href="../index.html#editions" class="btn btn-ghost-dark">Download Free</a>
+      <a href="../support.html" class="btn btn-gold">Support the Project</a>
+    </div>
+    <button class="nav-burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="docs-shell">
+    <aside class="docs-sidebar"><div id="docs-sidebar-nav"></div></aside>
+    <main class="docs-content">
+      <div class="docs-eyebrow">Getting Started</div>
+      <h1>Installation</h1>
+      <p class="lede">Traceline is plain PHP + MySQL — no build step, no Node runtime required to run the app itself. This page covers a typical XAMPP install; see the repo's <code>SETUP.md</code> for the authoritative, always-current version.</p>
+
+      <h2>Requirements</h2>
+      <ul>
+        <li><strong>PHP 8.1+</strong> with the <code>pdo_mysql</code>, <code>openssl</code>, and <code>curl</code> extensions (all enabled by default in XAMPP)</li>
+        <li><strong>MySQL or MariaDB</strong></li>
+        <li><strong>Apache</strong> with <code>mod_rewrite</code> enabled</li>
+      </ul>
+
+      <h2>1. Get the files</h2>
+      <p>Download or clone the repository, then copy the folder into your web root:</p>
+      <pre><code>C:\xampp\htdocs\traceline\</code></pre>
+
+      <h2>2. Enable mod_rewrite</h2>
+      <p>In XAMPP Control Panel → Apache → Config → <code>httpd.conf</code>, make sure this line has no leading <code>#</code>:</p>
+      <pre><code>LoadModule rewrite_module modules/mod_rewrite.so</code></pre>
+      <p>And that your <code>&lt;Directory&gt;</code> block allows overrides:</p>
+      <pre><code>&lt;Directory "C:/xampp/htdocs"&gt;
+    AllowOverride All
+    Require all granted
+&lt;/Directory&gt;</code></pre>
+      <p>Restart Apache after this change.</p>
+
+      <h2>3. Create the database</h2>
+      <p>Easiest via phpMyAdmin: <strong>Import</strong> → choose <code>install.sql</code> → Go. Or from the command line:</p>
+      <pre><code>mysql -u root -e "source C:/xampp/htdocs/traceline/install.sql"</code></pre>
+
+      <h2>4. Configure your environment</h2>
+      <p>Copy the template and fill in real values — never ship the placeholder secrets beyond a local test install:</p>
+      <pre><code>copy .env.example .env</code></pre>
+      <p>Generate two real secrets:</p>
+      <pre><code>php -r "echo bin2hex(random_bytes(32));"</code></pre>
+      <p>Run that twice, and paste the results in as <code>ENCRYPTION_KEY</code> and <code>INTERNAL_WORKER_SECRET</code>. Leave <code>DB_USER</code>/<code>DB_PASS</code>/<code>DB_NAME</code> as the XAMPP defaults unless you changed something in Step 3.</p>
+
+      <div class="docs-callout warn">
+        <i class="fas fa-triangle-exclamation"></i>
+        <p><code>.env</code> holds real secrets. It's already gitignored and blocked from web access by <code>.htaccess</code> — never place it somewhere web-servable or commit it.</p>
+      </div>
+
+      <h2>5. Log in</h2>
+      <p>Visit <code>http://localhost/traceline</code> and sign in with:</p>
+      <table class="docs-table">
+        <tr><th>Email</th><td><code>admin@testtrack.local</code></td></tr>
+        <tr><th>Password</th><td><code>Admin1234!</code></td></tr>
+      </table>
+      <p><strong>Change this password immediately</strong> via Profile — it's a known default and this app is designed to be self-hosted on the open internet by anyone, including people who won't read this line.</p>
+
+      <h2>Applying updates</h2>
+      <p>Copy new files over your existing install, then apply any pending schema changes:</p>
+      <pre><code>php cli/migrate.php status   # see what's pending
+php cli/migrate.php          # apply it</code></pre>
+
+      <h2>Backups</h2>
+      <p>Run manually or on a schedule (Task Scheduler / cron):</p>
+      <pre><code>php cli/backup.php</code></pre>
+      <p>Dumps the database (gzipped) and archives <code>uploads/</code> into <code>backups/</code>, keeping the 14 most recent of each by default. Also rotates any log file over 10 MB. <strong>Copy the <code>backups/</code> folder somewhere off-box</strong> — backups on the same disk as the app only protect against mistakes, not disk failure.</p>
+
+      <h2>Going to production (HTTPS)</h2>
+      <p>Flip these in <code>.env</code> once you have a real TLS certificate:</p>
+      <ul>
+        <li><code>APP_ENV=production</code> — hides PHP errors from responses</li>
+        <li><code>APP_URL=https://your-domain/traceline</code></li>
+        <li><code>SESSION_SECURE=true</code> — <strong>only after</strong> HTTPS is actually working, or login will silently fail</li>
+        <li>Fresh <code>ENCRYPTION_KEY</code> / <code>INTERNAL_WORKER_SECRET</code> — never reuse values from a dev install</li>
+      </ul>
+
+      <div class="docs-next">
+        <span></span>
+        <a href="core-concepts.html">Core Concepts &rarr;</a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <span>© 2026 Traceline. Open source under AGPL-3.0.</span>
+      <a href="../index.html">&larr; Back to home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/docs-nav.js"></script>
+</body>
+</html>

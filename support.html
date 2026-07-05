@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Traceline — Become a Supporter</title>
+<meta name="description" content="Make a one-time donation to unlock unlimited users and help fund Traceline's continued development.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-mark"><i class="fas fa-diagram-project"></i></span>
+      Traceline
+    </a>
+    <div class="nav-links">
+      <a href="index.html#why">Why Traceline</a>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#editions">Editions</a>
+      <a href="docs/index.html">Docs</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="https://github.com/traceline-project/traceline" target="_blank" rel="noopener">GitHub</a>
+      <div class="nav-links-mobile-cta">
+        <a href="index.html#editions" class="btn btn-ghost-dark btn-block">Download Free</a>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <a href="index.html#editions" class="btn btn-ghost-dark">Download Free</a>
+    </div>
+    <button class="nav-burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<header class="hero" style="padding-bottom: clamp(4rem, 8vw, 6rem);">
+  <div class="wrap hero-inner">
+    <div class="hero-badge"><i class="fas fa-heart" style="color:var(--gold);"></i> Support the Project</div>
+    <h1 style="font-size:clamp(2.25rem, 5vw, 3.5rem);">Help keep Traceline free for everyone else.</h1>
+    <p class="hero-sub">
+      A one-time donation unlocks unlimited users on your install and funds the
+      features, fixes, and security work that keep Traceline moving forward.
+    </p>
+  </div>
+</header>
+
+<section class="section" style="padding-top: clamp(2rem, 5vw, 3rem);">
+  <div class="wrap">
+    <div class="pricing-grid" style="max-width:960px;margin:0 auto;">
+      <div class="price-card">
+        <span class="price-badge community">CURRENT PLAN</span>
+        <h3>Community Edition</h3>
+        <div class="price-sub">What you get today, free</div>
+        <div class="price-amount">$0</div>
+        <ul class="price-list">
+          <li><i class="fas fa-circle-check"></i> Up to 5 active users</li>
+          <li><i class="fas fa-circle-check"></i> Unlimited projects &amp; test cases</li>
+          <li><i class="fas fa-circle-check"></i> Full reporting &amp; dashboard</li>
+        </ul>
+        <a href="index.html#editions" class="btn btn-outline btn-block">Back to Editions</a>
+      </div>
+
+      <div class="price-card supporter">
+        <span class="price-badge supporter-badge"><i class="fas fa-heart"></i> ONE-TIME DONATION</span>
+        <h3>Become a Supporter</h3>
+        <div class="price-sub">Unlimited users, lifetime activation, on us — forever grateful</div>
+        <div class="price-amount">$79.99 <span>USD, one-time</span></div>
+        <ul class="price-list">
+          <li><i class="fas fa-circle-check"></i> Unlimited users on this install</li>
+          <li><i class="fas fa-circle-check"></i> Lifetime activation — no renewal</li>
+          <li><i class="fas fa-circle-check"></i> Supporter badge &amp; recognition</li>
+          <li><i class="fas fa-circle-check"></i> Funds new features, fixes, and security work</li>
+        </ul>
+        <button class="btn btn-gold btn-block" id="donate-btn" type="button">
+          <i class="fas fa-heart"></i> Donate $79.99
+        </button>
+      </div>
+    </div>
+
+    <!-- Payment processing not wired up yet — placeholder notice, shown honestly rather than a fake/broken checkout -->
+    <div id="donate-notice" style="display:none;max-width:640px;margin:2rem auto 0;padding:1.5rem 1.75rem;border-radius:var(--r-md);background:var(--accent-tint);border:1px solid #c7d2fe;">
+      <p style="margin:0;color:var(--ink-700);font-size:.9375rem;">
+        <i class="fas fa-circle-info" style="color:var(--accent);margin-right:.5rem;"></i>
+        Online checkout isn't wired up on this preview yet. In the meantime, email
+        <strong>support@traceline.dev</strong> with your organization name and we'll
+        arrange payment and send your license key by hand. This notice goes away the
+        moment the real donation flow ships.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--paper-tint);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow" style="justify-content:center;">What Happens Next</div>
+      <h2>From donation to activation in minutes</h2>
+    </div>
+    <div class="flow-steps" style="counter-reset: flow;">
+      <div class="flow-step" style="background:var(--paper);border-color:var(--paper-line);">
+        <h4 style="color:var(--ink-900);">Donate</h4>
+        <p style="color:var(--ink-500);">Complete the one-time $79.99 payment and enter your email.</p>
+      </div>
+      <div class="flow-step" style="background:var(--paper);border-color:var(--paper-line);">
+        <h4 style="color:var(--ink-900);">Receive your key</h4>
+        <p style="color:var(--ink-500);">A signed license key is generated and emailed to you right away.</p>
+      </div>
+      <div class="flow-step" style="background:var(--paper);border-color:var(--paper-line);">
+        <h4 style="color:var(--ink-900);">Activate</h4>
+        <p style="color:var(--ink-500);">Paste it into Settings → License in your Traceline install.</p>
+      </div>
+      <div class="flow-step" style="background:var(--paper);border-color:var(--paper-line);">
+        <h4 style="color:var(--ink-900);">Unlimited, instantly</h4>
+        <p style="color:var(--ink-500);">Verified locally against a signed key — no phoning home, ever again.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow" style="justify-content:center;">Questions</div>
+      <h2>Before you donate</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">Is this a subscription? <i class="fas fa-plus"></i></button>
+        <div class="faq-a"><p>No. It's a single one-time payment. There's nothing to cancel, ever.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What if I need a refund? <i class="fas fa-plus"></i></button>
+        <div class="faq-a"><p>Email support@traceline.dev within 14 days and we'll refund it, no questions asked — your license key will simply stop verifying.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Does this cover multiple installs? <i class="fas fa-plus"></i></button>
+        <div class="faq-a"><p>A license key activates unlimited users on the install(s) you use it on — there's no per-seat or per-server metering. If you're running many separate organizations on separate installs, consider a donation per organization to keep funding proportional to the value received.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I get an invoice for my company? <i class="fas fa-plus"></i></button>
+        <div class="faq-a"><p>Yes — email support@traceline.dev after donating and we'll send one.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <span>© 2026 Traceline. Open source under AGPL-3.0.</span>
+      <a href="index.html">&larr; Back to home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+document.getElementById('donate-btn').addEventListener('click', function () {
+  document.getElementById('donate-notice').style.display = 'block';
+  document.getElementById('donate-notice').scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+</script>
+</body>
+</html>

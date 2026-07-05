@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Features — Traceline Docs</title>
+<meta name="description" content="Configuring an AI provider and using Traceline's AI-assisted test case generation, run summaries, and failure clustering.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/docs.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="../index.html" class="nav-logo"><span class="nav-logo-mark"><i class="fas fa-diagram-project"></i></span> Traceline</a>
+    <div class="nav-links">
+      <a href="index.html">Docs</a>
+      <a href="../index.html#features">Features</a>
+      <a href="../index.html#editions">Editions</a>
+      <a href="https://github.com/traceline-project/traceline" target="_blank" rel="noopener">GitHub</a>
+      <div class="nav-links-mobile-cta">
+        <a href="../index.html#editions" class="btn btn-ghost-dark btn-block">Download Free</a>
+        <a href="../support.html" class="btn btn-gold btn-block">Support the Project</a>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <a href="../index.html#editions" class="btn btn-ghost-dark">Download Free</a>
+      <a href="../support.html" class="btn btn-gold">Support the Project</a>
+    </div>
+    <button class="nav-burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="docs-shell">
+    <aside class="docs-sidebar"><div id="docs-sidebar-nav"></div></aside>
+    <main class="docs-content">
+      <div class="docs-eyebrow">Using Traceline</div>
+      <h1>AI Features</h1>
+      <p class="lede">Traceline's AI features work with any OpenAI-compatible endpoint — including a fully local, free, private model via LM Studio. Nothing is sent anywhere unless you point it at a cloud provider yourself.</p>
+
+      <h2>Configuring a provider</h2>
+      <p>Settings → AI Provider. Two supported shapes:</p>
+      <table class="docs-table">
+        <tr><th>Provider</th><th>Setup</th></tr>
+        <tr><td><strong>Local (LM Studio)</strong></td><td>Default. Point Base URL at <code>http://localhost:1234/v1</code>, load any model in LM Studio, no API key needed.</td></tr>
+        <tr><td><strong>OpenAI-compatible cloud</strong></td><td>Set Base URL to your provider's endpoint (e.g. <code>https://api.openai.com/v1</code>) and paste an API key — stored encrypted at rest.</td></tr>
+      </table>
+      <p>Use <strong>Test Connection</strong> after saving to confirm the endpoint actually responds before relying on it.</p>
+
+      <h2>Generate Test Cases</h2>
+      <p>Test Cases → <strong>AI Generate</strong>. Describe a feature in plain language (a couple of sentences minimum), pick a target suite, and review the drafted cases before accepting — nothing is written to the database until you explicitly accept. Accepted cases land in an "AI Generated" section within the chosen suite, tagged <code>ai-generated</code>.</p>
+      <p>You can also generate cases directly from a <strong>Requirement</strong> (Requirements → AI Cases) — the generated cases are automatically linked back to that requirement for traceability.</p>
+
+      <h2>AI Run Summary</h2>
+      <p>From a Test Run's toolbar, <strong>AI Summary</strong> produces an executive-style summary of the run's results — useful for a status update without reading every individual result.</p>
+
+      <h2>Suggest Coverage</h2>
+      <p>Analyzes a suite's existing test cases and suggests gaps — areas that look under-tested relative to the feature surface implied by the existing cases.</p>
+
+      <h2>Cluster Failures</h2>
+      <p>From a run with failures, <strong>Cluster Failures</strong> groups failing tests that likely share one root cause, with a suggested root cause and recommendation per cluster — then lets you draft one issue per cluster instead of filing duplicates for what's really one underlying bug.</p>
+
+      <h2>Draft Issue</h2>
+      <p>Any failed/blocked test result can draft a bug report from its steps, expected result, and your comment. If no AI provider is reachable, this still works — it falls back to a mechanical draft built directly from the test case data, so the button is never dead.</p>
+
+      <div class="docs-callout tip">
+        <i class="fas fa-circle-info"></i>
+        <p>All AI endpoints are rate-limited (20 requests per 5 minutes per user) to prevent runaway usage against a paid API key.</p>
+      </div>
+
+      <div class="docs-next">
+        <a href="requirements-issues.html">&larr; Requirements &amp; Issues</a>
+        <a href="integrations-api.html">Integrations &amp; API &rarr;</a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <span>© 2026 Traceline. Open source under AGPL-3.0.</span>
+      <a href="../index.html">&larr; Back to home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/docs-nav.js"></script>
+</body>
+</html>

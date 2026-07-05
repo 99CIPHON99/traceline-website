@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Core Concepts — Traceline Docs</title>
+<meta name="description" content="How Projects, Suites, Sections, Test Cases, and Test Runs fit together in Traceline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/docs.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="../index.html" class="nav-logo"><span class="nav-logo-mark"><i class="fas fa-diagram-project"></i></span> Traceline</a>
+    <div class="nav-links">
+      <a href="index.html">Docs</a>
+      <a href="../index.html#features">Features</a>
+      <a href="../index.html#editions">Editions</a>
+      <a href="https://github.com/traceline-project/traceline" target="_blank" rel="noopener">GitHub</a>
+      <div class="nav-links-mobile-cta">
+        <a href="../index.html#editions" class="btn btn-ghost-dark btn-block">Download Free</a>
+        <a href="../support.html" class="btn btn-gold btn-block">Support the Project</a>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <a href="../index.html#editions" class="btn btn-ghost-dark">Download Free</a>
+      <a href="../support.html" class="btn btn-gold">Support the Project</a>
+    </div>
+    <button class="nav-burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="docs-shell">
+    <aside class="docs-sidebar"><div id="docs-sidebar-nav"></div></aside>
+    <main class="docs-content">
+      <div class="docs-eyebrow">Getting Started</div>
+      <h1>Core Concepts</h1>
+      <p class="lede">Five ideas explain almost everything in Traceline. Understand these and the rest of the app is just where the buttons are.</p>
+
+      <h2>The hierarchy</h2>
+      <p>Test cases live in a strict hierarchy — this is what makes large test libraries navigable instead of one giant flat list:</p>
+      <pre><code>Project
+└── Suite            (e.g. a product, module, or major feature area)
+    └── Section       (a folder within a suite — can be nested)
+        └── Test Case (the actual reusable test)</code></pre>
+      <ul>
+        <li><strong>Project</strong> — the top-level container. Most teams run one project per product; some run one per team.</li>
+        <li><strong>Suite</strong> — a grouping within a project. A project can have <code>suite_mode</code> set to single, multiple, or versioned suites depending on how you organize things.</li>
+        <li><strong>Section</strong> — a folder inside a suite for further organization (e.g. "Login", "Checkout", "Admin Panel").</li>
+        <li><strong>Test Case</strong> — the reusable, versioned unit: title, preconditions, steps, expected result, priority, type, and automation status.</li>
+      </ul>
+
+      <div class="docs-callout tip">
+        <i class="fas fa-circle-info"></i>
+        <p>Test cases are <strong>not</strong> tied to a single execution. The same case gets reused across every Test Run — that's what makes a "did this pass last time" history possible.</p>
+      </div>
+
+      <h2>Test Cases vs. Test Runs</h2>
+      <p>This is the concept that trips up people coming from a simple bug tracker:</p>
+      <ul>
+        <li>A <strong>Test Case</strong> is the reusable definition — "Login with valid credentials succeeds." It doesn't have a pass/fail state by itself.</li>
+        <li>A <strong>Test Run</strong> is a specific execution pass — "Sprint 42 Regression" — that snapshots a set of test cases and tracks pass/fail/blocked/retest/skipped for each one, on that run, at that time.</li>
+      </ul>
+      <p>This is why the same test case can show "passed" in one run and "failed" in another — the result belongs to the run, not the case.</p>
+
+      <h2>Where everything lives in the sidebar</h2>
+      <table class="docs-table">
+        <tr><th>Group</th><th>Contains</th></tr>
+        <tr><td><strong>Workspace</strong></td><td>Dashboard, Projects, Test Cases, Test Runs, Test Plans, Issues, Releases</td></tr>
+        <tr><td><strong>Quality</strong></td><td>Requirements, Milestones, Exploratory testing sessions, Shared Steps</td></tr>
+        <tr><td><strong>Insights</strong></td><td>Reports, Forecast, To-Do</td></tr>
+        <tr><td><strong>Admin</strong></td><td>Teams, Environments, Audit Log, Users, Settings</td></tr>
+      </table>
+
+      <h2>Roles</h2>
+      <p>Every user has exactly one role, which determines what they can do:</p>
+      <table class="docs-table">
+        <tr><th>Role</th><th>Can do</th></tr>
+        <tr><td><code>admin</code></td><td>Everything — user management, all CRUD, delete, settings, licensing</td></tr>
+        <tr><td><code>lead</code></td><td>All test management, plus delete suites and runs</td></tr>
+        <tr><td><code>qa</code></td><td>Create and edit test cases and results</td></tr>
+        <tr><td><code>developer</code></td><td>View and execute test runs</td></tr>
+        <tr><td><code>viewer</code></td><td>Read-only access everywhere</td></tr>
+      </table>
+
+      <h2>Community vs. Supporter edition</h2>
+      <p>This only affects <strong>how many active users</strong> your install allows — nothing else is gated. See <a href="administration.html#licensing">Licensing</a> in Administration for how activation works.</p>
+
+      <div class="docs-next">
+        <a href="installation.html">&larr; Installation</a>
+        <a href="test-cases.html">Test Cases &rarr;</a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <span>© 2026 Traceline. Open source under AGPL-3.0.</span>
+      <a href="../index.html">&larr; Back to home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/docs-nav.js"></script>
+</body>
+</html>

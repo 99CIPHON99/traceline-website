@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Execution — Traceline Docs</title>
+<meta name="description" content="Running test passes in Traceline: keyboard shortcuts, bulk updates, AI run summaries, and drafting issues from failures.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/docs.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="../index.html" class="nav-logo"><span class="nav-logo-mark"><i class="fas fa-diagram-project"></i></span> Traceline</a>
+    <div class="nav-links">
+      <a href="index.html">Docs</a>
+      <a href="../index.html#features">Features</a>
+      <a href="../index.html#editions">Editions</a>
+      <a href="https://github.com/traceline-project/traceline" target="_blank" rel="noopener">GitHub</a>
+      <div class="nav-links-mobile-cta">
+        <a href="../index.html#editions" class="btn btn-ghost-dark btn-block">Download Free</a>
+        <a href="../support.html" class="btn btn-gold btn-block">Support the Project</a>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <a href="../index.html#editions" class="btn btn-ghost-dark">Download Free</a>
+      <a href="../support.html" class="btn btn-gold">Support the Project</a>
+    </div>
+    <button class="nav-burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="docs-shell">
+    <aside class="docs-sidebar"><div id="docs-sidebar-nav"></div></aside>
+    <main class="docs-content">
+      <div class="docs-eyebrow">Using Traceline</div>
+      <h1>Test Execution</h1>
+      <p class="lede">Test Runs are where test cases actually get executed and tracked. This page covers creating a run, the execution screen, and its keyboard shortcuts.</p>
+
+      <h2>Creating a run</h2>
+      <p>From a Project's Runs tab, click <strong>New Run</strong>, give it a name, and select which test cases to include — an entire suite, specific sections, or a hand-picked set. Traceline snapshots those cases into the run with an initial status of <strong>Untested</strong>.</p>
+
+      <h2>The execution screen</h2>
+      <p>Open a run and click <strong>Execute</strong>. Results are grouped by section, each showing the case title, priority, tags, preconditions, and (collapsed by default) its steps.</p>
+
+      <h3>Keyboard shortcuts</h3>
+      <p>The execution screen is built to run entirely from the keyboard once you're in a rhythm:</p>
+      <table class="docs-table">
+        <tr><th>Key</th><th>Action</th></tr>
+        <tr><td><span class="docs-kbd">J</span> / <span class="docs-kbd">K</span></td><td>Next / previous test</td></tr>
+        <tr><td><span class="docs-kbd">P</span></td><td>Mark Passed</td></tr>
+        <tr><td><span class="docs-kbd">F</span></td><td>Mark Failed</td></tr>
+        <tr><td><span class="docs-kbd">B</span></td><td>Mark Blocked</td></tr>
+        <tr><td><span class="docs-kbd">R</span></td><td>Mark Retest</td></tr>
+        <tr><td><span class="docs-kbd">S</span></td><td>Mark Skipped</td></tr>
+        <tr><td><span class="docs-kbd">C</span></td><td>Add a comment</td></tr>
+        <tr><td><span class="docs-kbd">E</span></td><td>Expand steps</td></tr>
+      </table>
+
+      <h3>Bulk updates</h3>
+      <p>Click <strong>Select</strong> to reveal checkboxes, select multiple results, then apply one status to all of them at once — useful for marking an obviously-unaffected group as Passed after a targeted fix.</p>
+
+      <h3>Progress summary</h3>
+      <p>The top of the run shows a live-updating breakdown (Passed / Failed / Blocked / Retest / Skipped / Untested) with a stacked progress bar — it updates immediately as you work through the run, no refresh needed.</p>
+
+      <h2>Drafting an issue from a failure</h2>
+      <p>Any failed or blocked result shows a bug icon — click it to draft a bug report pre-filled with the test case's steps, expected result, and your comment. If an AI provider is configured (see <a href="ai-features.html">AI Features</a>), the description is AI-written; otherwise it falls back to a mechanical draft built straight from the test case, so the button always works either way.</p>
+
+      <h2>AI run summary &amp; failure clustering</h2>
+      <p>From the run's toolbar: <strong>AI Summary</strong> generates an executive summary of the run's results; <strong>Cluster Failures</strong> groups failures that likely share a root cause and lets you draft one issue per cluster instead of one per failing test. Both require an AI provider configured in Settings — see <a href="ai-features.html">AI Features</a>.</p>
+
+      <div class="docs-next">
+        <a href="test-cases.html">&larr; Test Cases</a>
+        <a href="requirements-issues.html">Requirements &amp; Issues &rarr;</a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <span>© 2026 Traceline. Open source under AGPL-3.0.</span>
+      <a href="../index.html">&larr; Back to home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/docs-nav.js"></script>
+</body>
+</html>

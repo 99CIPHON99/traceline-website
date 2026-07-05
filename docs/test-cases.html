@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Cases — Traceline Docs</title>
+<meta name="description" content="Creating test cases, CSV import, auto-classification, versioning, and shared steps in Traceline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/docs.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="../index.html" class="nav-logo"><span class="nav-logo-mark"><i class="fas fa-diagram-project"></i></span> Traceline</a>
+    <div class="nav-links">
+      <a href="index.html">Docs</a>
+      <a href="../index.html#features">Features</a>
+      <a href="../index.html#editions">Editions</a>
+      <a href="https://github.com/traceline-project/traceline" target="_blank" rel="noopener">GitHub</a>
+      <div class="nav-links-mobile-cta">
+        <a href="../index.html#editions" class="btn btn-ghost-dark btn-block">Download Free</a>
+        <a href="../support.html" class="btn btn-gold btn-block">Support the Project</a>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <a href="../index.html#editions" class="btn btn-ghost-dark">Download Free</a>
+      <a href="../support.html" class="btn btn-gold">Support the Project</a>
+    </div>
+    <button class="nav-burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="docs-shell">
+    <aside class="docs-sidebar"><div id="docs-sidebar-nav"></div></aside>
+    <main class="docs-content">
+      <div class="docs-eyebrow">Using Traceline</div>
+      <h1>Test Cases</h1>
+      <p class="lede">Test cases are the reusable heart of Traceline. This page covers creating them by hand, importing an existing library via CSV, how automatic classification works, and versioning.</p>
+
+      <h2>Creating a test case</h2>
+      <p>From a Suite or Section, click <strong>New Test Case</strong>. Each case has:</p>
+      <ul>
+        <li><strong>Title</strong> — required, shown everywhere the case is referenced</li>
+        <li><strong>Preconditions</strong> — state the system must be in before the steps run</li>
+        <li><strong>Steps</strong> — an ordered list of step + expected-result pairs</li>
+        <li><strong>Expected Result</strong> — the overall outcome</li>
+        <li><strong>Priority</strong> — low, medium, high, critical</li>
+        <li><strong>Type</strong> — functional, acceptance, performance, regression, smoke, integration</li>
+        <li><strong>Automation status</strong> — not automated, in progress, automated, not applicable</li>
+        <li><strong>Tags</strong> — free-form, comma-separated</li>
+      </ul>
+
+      <h2>Importing from CSV</h2>
+      <p>Test Cases → <strong>Import CSV</strong>. The importer auto-detects a couple of common export formats. The only required column is:</p>
+      <table class="docs-table">
+        <tr><th>Column</th><th>Required</th><th>Notes</th></tr>
+        <tr><td><code>title</code></td><td>Yes</td><td>Case-insensitive header match</td></tr>
+        <tr><td><code>section</code> or <code>modulename</code></td><td>No</td><td>Used as a fallback if step-based classification (below) doesn't find a clearer signal</td></tr>
+        <tr><td><code>case code</code> / <code>casecode</code></td><td>No</td><td>Preserves an existing ID from your old tool</td></tr>
+        <tr><td><code>priorities</code> / <code>priority</code></td><td>No</td><td>Defaults to Medium if omitted</td></tr>
+        <tr><td><code>type</code></td><td>No</td><td>Defaults to Functional if omitted</td></tr>
+      </table>
+      <p>Column headers are matched case-insensitively with whitespace/quotes trimmed, so most real-world exports work without pre-processing.</p>
+
+      <h2>Automatic classification</h2>
+      <p>If your test steps contain navigation breadcrumbs in the form <code>GOTO &lt;System&gt;.</code>, Traceline uses the <strong>first</strong> GOTO target as the primary signal for which Suite and Section a case belongs to — this is more reliable than a flat "module name" column when the same module name is reused across multiple products.</p>
+      <pre><code>Step 1: GOTO Administration. GOTO Users. Click "Add User".
+Expected: New user form appears.</code></pre>
+      <p>This example would classify into the <strong>Administration</strong> suite, <strong>Users</strong> section — regardless of what a "ModuleName" column in the CSV says.</p>
+
+      <div class="docs-callout tip">
+        <i class="fas fa-circle-info"></i>
+        <p>Already imported cases with the wrong classification? Test Cases → <strong>Reclassify Modules</strong> re-runs classification on every existing case using this same logic and moves anything that's filed under the wrong suite/section. Safe to run anytime — correctly-classified cases are left alone.</p>
+      </div>
+
+      <h2>Shared "Administration" suite</h2>
+      <p>Administrative test cases (user management, permissions, system settings) that apply across every product get pulled into a shared <strong>Administration (All Products)</strong> suite automatically, grouped by which product they came from underneath it — while still remaining accessible from within each product's own suite too. You're not maintaining two copies.</p>
+
+      <h2>Versioning</h2>
+      <p>Every edit to a test case's title, preconditions, steps, expected result, priority, or tags creates a new version behind the scenes. Open a test case → <strong>History</strong> to see prior versions and who changed what.</p>
+
+      <h2>Shared Steps</h2>
+      <p>For a sequence you reuse across many cases (e.g. "Log in as admin"), create it once under <strong>Shared Steps</strong> and reference it from any test case instead of retyping it — editing the shared step updates everywhere it's referenced.</p>
+
+      <h2>Bulk operations</h2>
+      <p>Select multiple test cases via their checkboxes to bulk-delete, or delete an entire suite's cases at once from Test Cases → module actions.</p>
+
+      <div class="docs-next">
+        <a href="core-concepts.html">&larr; Core Concepts</a>
+        <a href="test-execution.html">Test Execution &rarr;</a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0;">
+      <span>© 2026 Traceline. Open source under AGPL-3.0.</span>
+      <a href="../index.html">&larr; Back to home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/docs-nav.js"></script>
+</body>
+</html>
