@@ -24,8 +24,9 @@ php -S localhost:8898
 
 - Replace `[ dashboard screenshot ]` placeholder in the hero `.frame` with
   a real product screenshot.
-- Replace every `github.com/traceline-project/traceline` URL with the real
-  repo once it exists.
+- ~~Replace every `github.com/traceline-project/traceline` URL with the real
+  repo once it exists.~~ Done — all links now point to
+  `github.com/99CIPHON99/traceline`.
 - `support.html`'s donate button currently shows an honest "not wired up
   yet" notice instead of a real checkout. The license-issuing backend
   (`traceline-license-server`) is now built and has a real Stripe Payment
